@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_iris
 
-example_algo = "lda_pca"
+example_algo = "lin_reg"
 
 def read_data(name,rowskip=1,usecol=None,transpose="false"):
     file = name
