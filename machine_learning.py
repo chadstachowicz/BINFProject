@@ -1,6 +1,8 @@
 import numpy as np
 from numpy import linalg as LA
 from sklearn.decomposition import PCA
+from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LogisticRegression
 
 import matplotlib.pyplot as plt
 
@@ -54,7 +56,7 @@ class MachineLearning:
             y_diff = predicted_y - y
             #calc gradient_vector
             gradient_vector = np.dot(x.T, y_diff)
-            # calculate
+            # calculate vector updates
             self.w_ -= (eta / m) * gradient_vector
             # calculate cost
             cost = np.sum((y_diff ** 2)) / (2 * m)
@@ -64,6 +66,7 @@ class MachineLearning:
             b = self.best_fit(x,predicted_y)
             self.graph_line(x,y,b)
         return self
+
 
     def predict_linear_regression(self, x):
         return np.dot(x, self.w_)

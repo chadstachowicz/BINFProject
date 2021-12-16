@@ -7,6 +7,12 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_iris
 
+from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LogisticRegression
+
+from scipy.special import expit
+from sklearn import datasets
+
 example_algo = "lin_reg"
 
 def read_data(name,rowskip=1,usecol=None,transpose="false"):
@@ -68,6 +74,50 @@ def main():
             graph_data = pc[np.flatnonzero(Y_training_data == label)]
             plt.scatter(graph_data[:, 0], graph_data[:, 1], c=color)
         plt.show()
+    if example_algo == "linear_sk":
+        name = "./lin_reg_data.csv"
+        x_array = []
+        y_array = []
+        data = read_data(name, 1, None)
+        for d in data:
+            x_array.append([d[0]])
+            y_array.append([d[1]])
+        X = np.array(x_array)
+        Y = np.array(y_array)
+        reg = LinearRegression().fit(X, Y)
+       # reg.score(X, y)
+       # reg.coef_
+       # reg.coef_
+       # reg.intercept_
+        plt.scatter(X, Y, color='g')
+        plt.plot(X, reg.predict(X), color='k')
+
+        plt.show()
+    if example_algo == "logistic_reg":
+
+        xmin, xmax = -5, 5
+        n_samples = 100
+        np.random.seed(0)
+        X = np.random.normal(size=n_samples)
+        y = (X > 0).astype(float)
+        X[X > 0] *= 4
+        X += 0.3 * np.random.normal(size=n_samples)
+
+        X = X[:, np.newaxis]
+        # Fit the classifier
+        clf = LogisticRegression()
+        clf.fit(X, y)
+
+        # and plot the result
+        plt.figure(1, figsize=(4, 3))
+        plt.clf()
+        plt.scatter(X.ravel(), y, color="green", zorder=20)
+        X_test = np.linspace(-5, 10, 300)
+
+        loss = expit(X_test * clf.coef_ + clf.intercept_).ravel()
+        plt.plot(X_test, loss, color="blue", linewidth=3)
+        plt.show()
+        
     if example_algo == "lda_pca":
         k = 40
         name = "./dataset_1.csv"
