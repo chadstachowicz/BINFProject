@@ -34,11 +34,6 @@ class MyLDA:
         print(eig_vectors.shape)
         pc = X.dot(eig_vectors[:, ::-1][:, :self.comps])
         print(pc.shape)
-        for i in range(len(pc)):
-            pc[i][1] = pc[i][1] * -1
-            temp = pc[i][1]
-            pc[i][1] = pc[i][0]
-            pc[i][0] = temp
         self.plot_data_2_class(pc,Y,X)
         self.plot_data_axis(pc, Y, X)
         return pc
